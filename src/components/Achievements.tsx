@@ -3,9 +3,9 @@ import { useRef, useEffect, useState } from "react";
 import { Calendar, Users, Medal, Trophy } from "lucide-react";
 
 const stats = [
-  { icon: Calendar, value: 15, label: "Лет опыта", suffix: "+" },
+  { icon: Calendar, value: 10, label: "Лет опыта", suffix: "+" },
   { icon: Users, value: 500, label: "Учеников", suffix: "+" },
-  { icon: Medal, value: 120, label: "Медалей", suffix: "" },
+  { icon: Medal, value: 800, label: "Медалей", suffix: "" },
   { icon: Trophy, value: 50, label: "Турниров", suffix: "+" },
 ];
 
