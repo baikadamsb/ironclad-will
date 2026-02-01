@@ -26,10 +26,10 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-wider mb-4">
-            <span className="gradient-text-red">GURG TEAM</span>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-wider mb-4">
+            <span className="font-display gradient-text-red">GURG TEAM</span>
             <br />
-            <span className="text-foreground">ANZOR RADZHABOV</span>
+            <span className="font-heading text-foreground">ANZOR RADZHABOV</span>
           </h1>
         </motion.div>
 

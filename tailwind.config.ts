@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         heading: ["Oswald", "sans-serif"],
         body: ["Inter", "sans-serif"],
+        display: ["Black Ops One", "cursive"],
       },
       colors: {
         border: "hsl(var(--border))",
