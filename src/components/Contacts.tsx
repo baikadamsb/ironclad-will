@@ -122,7 +122,7 @@ const Contacts = ({ selectedBranch, onBranchChange }: ContactsProps) => {
                   <Send size={20} />
                 </motion.a>
                 <motion.a
-                  href="https://instagram.com/"
+                  href="https://instagram.com/gurg_team"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-social"

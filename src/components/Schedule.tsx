@@ -6,7 +6,8 @@ const branches = [
     id: "kenesary",
     name: "Кенесары",
     address: "г. Астана, ул. Кенесары, д. 47",
-    mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2504.8!2d71.4278!3d51.1605!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x424585a605525605%3A0x4dff4a1973f7567e!2z0YPQuy4g0JrQtdC90LXRgdCw0YDRiywg0JDRgdGC0LDQvdCw!5e0!3m2!1sru!2skz!4v1234567890",
+    // Яндекс. Виджет (iframe). Если у второго филиала другая карта — вставь сюда его um=constructor...
+    mapUrl:"https://yandex.ru/map-widget/v1/?um=constructor%3A43d6269b8d3ae2ea8c22209f26bc347784def1822eaedd91001de0a8e68dbc10&source=constructor",
     schedule: [
       { day: "Вт, Чт, Сб", time: "09:30 - 11:00", group: "Дети", age: "10-12 лет" },
       { day: "Вт, Чт, Сб", time: "17:30 - 19:00", group: "Подростки", age: "12-14 лет" },
@@ -18,7 +19,9 @@ const branches = [
     id: "kosshygululy",
     name: "Косшыгулулы",
     address: "г. Астана, ул. Косшыгулулы, д. 11/3",
-    mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2504.5!2d71.4678!3d51.1805!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x424585a605525605%3A0x4dff4a1973f7567e!2z0YPQuy4g0JrQvtGB0YjRi9Cz0YPQu9GD0LvRiywg0JDRgdGC0LDQvdCw!5e0!3m2!1sru!2skz!4v1234567891",
+    // ВАЖНО: поставь реальный constructor для этого филиала (сейчас стоит тот же, как заглушка)
+    mapUrl:
+      "https://yandex.ru/map-widget/v1/?um=constructor%3Aea6e602ed24d52ef63ee442db357ca4224d31692720dac113151341f7505ba7f&source=constructor",
     schedule: [
       { day: "Пн, Ср, Пт", time: "09:30 - 11:00", group: "Дети", age: "10-14 лет" },
       { day: "Пн, Ср, Пт", time: "19:00 - 20:00", group: "Дети", age: "4-10 лет" },
@@ -27,8 +30,7 @@ const branches = [
   },
 ];
 
-export type Branch = typeof branches[0];
-
+export type Branch = (typeof branches)[0];
 export const getBranches = () => branches;
 
 const container = {
@@ -53,10 +55,10 @@ interface ScheduleProps {
 
 const Schedule = ({ selectedBranch, onBranchChange }: ScheduleProps) => {
   const [internalBranch, setInternalBranch] = useState(branches[0].id);
-  
+
   const activeBranchId = selectedBranch ?? internalBranch;
   const setActiveBranch = onBranchChange ?? setInternalBranch;
-  
+
   const activeBranch = branches.find((b) => b.id === activeBranchId) ?? branches[0];
 
   return (
@@ -72,9 +74,7 @@ const Schedule = ({ selectedBranch, onBranchChange }: ScheduleProps) => {
           <h2 className="section-heading">
             <span className="gradient-text-red">Расписание</span>
           </h2>
-          <p className="section-subheading mx-auto">
-            Выбери удобное время для тренировок
-          </p>
+          <p className="section-subheading mx-auto">Выбери удобное время для тренировок</p>
         </motion.div>
 
         {/* Branch selector */}
@@ -116,12 +116,7 @@ const Schedule = ({ selectedBranch, onBranchChange }: ScheduleProps) => {
           </div>
 
           {/* Rows */}
-          <motion.div
-            key={activeBranchId}
-            variants={container}
-            initial="hidden"
-            animate="visible"
-          >
+          <motion.div key={activeBranchId} variants={container} initial="hidden" animate="visible">
             {activeBranch.schedule.map((row, index) => (
               <motion.div
                 key={index}
@@ -137,6 +132,19 @@ const Schedule = ({ selectedBranch, onBranchChange }: ScheduleProps) => {
             ))}
           </motion.div>
         </motion.div>
+
+        {/* Yandex Map */}
+        <div className="max-w-4xl mx-auto mt-10">
+          <iframe
+            key={activeBranchId}
+            src={activeBranch.mapUrl}
+            width="100%"
+            height="400"
+            frameBorder={0}
+            style={{ border: 0 }}
+            allowFullScreen
+          />
+        </div>
 
         <motion.p
           className="text-center text-muted-foreground mt-8"

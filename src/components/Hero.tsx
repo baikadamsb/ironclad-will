@@ -77,7 +77,7 @@ const Hero = () => {
             <Send size={24} />
           </a>
           <a
-            href="https://instagram.com/"
+            href="https://instagram.com/gurg_team"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-social"
