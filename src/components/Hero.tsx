@@ -29,7 +29,7 @@ const Hero = () => {
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-wider mb-4">
             <span className="font-display gradient-text-red">GURG TEAM</span>
             <br />
-            <span className="font-heading text-foreground">ANZOR RADZHABOV</span>
+            <span className="font-display text-foreground">ANZOR RADZHABOV</span>
           </h1>
         </motion.div>
 
