@@ -1,7 +1,16 @@
 import { motion } from "framer-motion";
 import { MapPin, Phone, Send, Instagram, Clock } from "lucide-react";
+import { getBranches } from "./Schedule";
 
-const Contacts = () => {
+interface ContactsProps {
+  selectedBranch?: string;
+  onBranchChange?: (branchId: string) => void;
+}
+
+const Contacts = ({ selectedBranch, onBranchChange }: ContactsProps) => {
+  const branches = getBranches();
+  const activeBranch = branches.find((b) => b.id === selectedBranch) ?? branches[0];
+
   return (
     <section id="contacts" className="py-24 bg-background">
       <div className="container mx-auto px-6">
@@ -20,6 +29,29 @@ const Contacts = () => {
           </p>
         </motion.div>
 
+        {/* Branch selector */}
+        <motion.div
+          className="flex justify-center gap-4 mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          {branches.map((branch) => (
+            <button
+              key={branch.id}
+              onClick={() => onBranchChange?.(branch.id)}
+              className={`px-6 py-3 font-heading uppercase tracking-wider text-sm md:text-base transition-all duration-300 border-2 ${
+                selectedBranch === branch.id
+                  ? "bg-primary border-primary text-primary-foreground"
+                  : "bg-transparent border-muted-foreground/30 text-muted-foreground hover:border-primary hover:text-primary"
+              }`}
+            >
+              {branch.name}
+            </button>
+          ))}
+        </motion.div>
+
         <div className="grid md:grid-cols-2 gap-12">
           {/* Info */}
           <motion.div
@@ -29,18 +61,23 @@ const Contacts = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="flex items-start gap-4">
+            <motion.div 
+              key={activeBranch.id + "-address"}
+              className="flex items-start gap-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            >
               <div className="btn-social shrink-0">
                 <MapPin size={20} />
               </div>
               <div>
                 <h3 className="font-heading text-lg uppercase text-foreground mb-1">Адрес</h3>
                 <p className="text-muted-foreground">
-                  г. Москва, ул. Спортивная, д. 15<br />
-                  СК "Олимп", зал №3
+                  {activeBranch.address}
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             <div className="flex items-start gap-4">
               <div className="btn-social shrink-0">
@@ -49,8 +86,8 @@ const Contacts = () => {
               <div>
                 <h3 className="font-heading text-lg uppercase text-foreground mb-1">Время работы</h3>
                 <p className="text-muted-foreground">
-                  Пн-Пт: 18:00 - 21:00<br />
-                  Сб: 10:00 - 12:00
+                  Пн-Пт: 17:00 - 21:00<br />
+                  Сб: 10:00 - 16:00
                 </p>
               </div>
             </div>
@@ -108,6 +145,7 @@ const Contacts = () => {
 
           {/* Map */}
           <motion.div
+            key={activeBranch.id + "-map"}
             className="relative h-[400px] overflow-hidden"
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -115,7 +153,7 @@ const Contacts = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.5875815395!2d37.5645!3d55.7143!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTXCsDQyJzUxLjUiTiAzN8KwMzMnNTIuMiJF!5e0!3m2!1sru!2sru!4v1234567890"
+              src={activeBranch.mapUrl}
               className="w-full h-full border-0 grayscale contrast-125"
               allowFullScreen
               loading="lazy"
