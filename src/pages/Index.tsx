@@ -10,7 +10,7 @@ import Footer from "@/components/Footer";
 import MobileButton from "@/components/MobileButton";
 
 const Index = () => {
-  const [selectedBranch, setSelectedBranch] = useState("olympic");
+  const [selectedBranch, setSelectedBranch] = useState("kenesary");
 
   return (
     <main className="min-h-screen bg-background">
