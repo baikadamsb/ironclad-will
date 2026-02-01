@@ -11,7 +11,7 @@ const Footer = () => {
               <span className="font-heading text-xl text-primary-foreground font-bold">М</span>
             </div>
             <span className="font-heading text-lg uppercase tracking-wider">
-              Школа Боевых Искусств
+              GURG TEAM
             </span>
           </div>
 
