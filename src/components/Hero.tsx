@@ -57,7 +57,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          «Это не кружок. Это GURG характера.»
+          «Это не кружок. Это школа характера.»
         </motion.p>
 
         {/* Social buttons */}
